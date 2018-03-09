@@ -30,8 +30,8 @@ class SoftSourceDecideSkill(FallbackSkill):
     def handle_fallback(self, message):
         utterance = message.data.get("utterance")
         LOG.debug("Utterance is: " + utterance)
-        payload = {'raw-utterance': utterance}
-        r = requests.post('https://softsourceoscontest.azurewebsites.net/api/values', json=payload)
+        payload = utterance
+        r = requests.post('https://softsourcechatbot.azurewebsites.net/api/values', json=payload)
         LOG.debug("POST response text is " + r.text)
         self.speak(r.text.strip('\"'))
         return True
