@@ -31,7 +31,7 @@ class SoftSourceDecideSkill(FallbackSkill):
         utterance = message.data.get("utterance")
         LOG.debug("Utterance is: " + utterance)
         payload = utterance
-       // r = requests.post('https://directline.botframework.com/v3/directline/conversations', json=payload)
+        # r = requests.post('https://directline.botframework.com/v3/directline/conversations', json=payload)
         r = requests.post('https://softsourcechatbot.azurewebsites.net/api/values', json=payload, headers={'Authentication':'Bearer odJ5VKzB8oY.cwA.9E0.IkVvS809oGsfqJPFTe4kui6sYWbPXqUbSTUnLncIn_U'})        
         LOG.debug("POST response text is " + r.text)
         self.speak(r.text.strip('\"'))
