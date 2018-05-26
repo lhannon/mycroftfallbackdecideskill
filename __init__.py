@@ -33,18 +33,18 @@ class SoftSourceDecideSkill(FallbackSkill):
         payload = utterance
         # r = requests.post('https://directline.botframework.com/v3/directline/conversations', json=payload)
         r = requests.post('https://directline.botframework.com/v3/directline/conversations', json=payload, headers={'Authorization':'Bearer odJ5VKzB8oY.cwA.9E0.IkVvS809oGsfqJPFTe4kui6sYWbPXqUbSTUnLncIn_U'})    
-        self.speak(r.text.strip('\"'))                                                                                                                                    
+        # self.speak(r.text.strip('\"'))                                                                                                                                    
         
         LOG.debug("POST response r.text is " + r.text)
         payload2 = { 'type': 'message','from': { 'id': 'user1' }, 'text': utterance }
         r2 = requests.post('https://directline.botframework.com/v3/directline/conversations/' + r.json()['conversationId'] + '/activities', headers={'Authorization':'Bearer '+r.json()['token']}, json=payload2)
 
-        self.speak(r2.text.strip('\"'))
+        # self.speak(r2.text.strip('\"'))
         r3 = requests.get('https://directline.botframework.com/v3/directline/conversations/' + r.json()['conversationId'] + '/activities', headers={'Authorization':'Bearer '+r.json()['token']}) 
         LOG.debug("GET response r3.text is " + r3.text)
         lastActivityIndex = len(r3.json()['activities']) - 1
         
-        self.speak(r3.json()['activities'][lastActivityIndex]['text']);
+        self.speak(r3.json()['activities'][0]['text']);
         return True
 
     def shutdown(self):
