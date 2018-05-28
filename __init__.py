@@ -36,15 +36,17 @@ class SoftSourceDecideSkill(FallbackSkill):
         # self.speak(r.text.strip('\"'))                                                                                                                                    
         
         LOG.debug("POST response r.text is " + r.text)
-        payload2 = { 'type': 'message','from': { 'id': 'user1' }, 'text': utterance }
+        payload2 = { 'type': 'message', 'from': {'id': 'mycroftclient'}, 'text': utterance }
         r2 = requests.post('https://directline.botframework.com/v3/directline/conversations/' + r.json()['conversationId'] + '/activities', headers={'Authorization':'Bearer '+r.json()['token']}, json=payload2)
 
         # self.speak(r2.text.strip('\"'))
         r3 = requests.get('https://directline.botframework.com/v3/directline/conversations/' + r.json()['conversationId'] + '/activities', headers={'Authorization':'Bearer '+r.json()['token']}) 
         LOG.debug("GET response r3.text is " + r3.text)
+
+        #TODO: filter by 'from' and 'id' in activities, activitiesFromSftSrc = filter(lambda x: x['from']['id'] == 'sftsrc')
         lastActivityIndex = len(r3.json()['activities']) - 1
-        
-        self.speak(r3.json()['activities'][0]['text']);
+
+        self.speak(r3.json()['activities'][lastActivityIndex]['text'])
         return True
 
     def shutdown(self):
