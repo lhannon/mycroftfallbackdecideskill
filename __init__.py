@@ -42,12 +42,12 @@ class SoftSourceDecideSkill(FallbackSkill):
         lastActivityIndex = len(r3.json()['activities']) - 1
         
         dialogText = r3.json()['activities'][lastActivityIndex]['text'] 
-        if dialogText.startswith('I\'m sorry'):
+        if dialogText.startswith('Sorry, I do not understand'):
             return False
 
         self.speak(dialogText)
         return True
-        
+
     def shutdown(self):
         """
             Remove this skill from list of fallback skills.
