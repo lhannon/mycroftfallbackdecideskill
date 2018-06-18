@@ -13,9 +13,7 @@ from mycroft.util.log import LOG
 import requests
 
 # Each skill is contained within its own class, which inherits base methods
-# from the MycroftSkill class.  You extend this class as shown below.
-
-# TODO: Change "Template" to a unique name for your skill
+# from the MycroftSkill class.  
 class SoftSourceDecideSkill(FallbackSkill):
 
     # The constructor of the skill, which calls MycroftSkill's constructor
@@ -31,24 +29,25 @@ class SoftSourceDecideSkill(FallbackSkill):
         utterance = message.data.get("utterance")
         LOG.debug("Utterance is: " + utterance)
         payload = utterance
-        # r = requests.post('https://directline.botframework.com/v3/directline/conversations', json=payload)
         r = requests.post('https://directline.botframework.com/v3/directline/conversations', json=payload, headers={'Authorization':'Bearer odJ5VKzB8oY.cwA.9E0.IkVvS809oGsfqJPFTe4kui6sYWbPXqUbSTUnLncIn_U'})    
-        # self.speak(r.text.strip('\"'))                                                                                                                                    
+                                                                                                                                        
         
         LOG.debug("POST response r.text is " + r.text)
         payload2 = { 'type': 'message', 'from': {'id': 'mycroftclient'}, 'text': utterance }
-        r2 = requests.post('https://directline.botframework.com/v3/directline/conversations/' + r.json()['conversationId'] + '/activities', headers={'Authorization':'Bearer '+r.json()['token']}, json=payload2)
+        requests.post('https://directline.botframework.com/v3/directline/conversations/' + r.json()['conversationId'] + '/activities', headers={'Authorization':'Bearer '+r.json()['token']}, json=payload2)
 
-        # self.speak(r2.text.strip('\"'))
         r3 = requests.get('https://directline.botframework.com/v3/directline/conversations/' + r.json()['conversationId'] + '/activities', headers={'Authorization':'Bearer '+r.json()['token']}) 
         LOG.debug("GET response r3.text is " + r3.text)
 
-        #TODO: filter by 'from' and 'id' in activities, activitiesFromSftSrc = filter(lambda x: x['from']['id'] == 'sftsrc')
         lastActivityIndex = len(r3.json()['activities']) - 1
+        
+        dialogText = r3.json()['activities'][lastActivityIndex]['text'] 
+        if dialogText.startswith('I\'m sorry'):
+            return False
 
-        self.speak(r3.json()['activities'][lastActivityIndex]['text'])
+        self.speak(dialogText)
         return True
-
+        
     def shutdown(self):
         """
             Remove this skill from list of fallback skills.
