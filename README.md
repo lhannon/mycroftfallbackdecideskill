@@ -1,19 +1,16 @@
-To submit your skill, replace this file with text from 
-https://rawgit.com/MycroftAI/mycroft-skills/master/meta_editor.html
-
-
 ## YOUR SKILL NAME
-One line description of the skill
+Decide randomly between two options
 
 ## Description 
-A more verbose description, including any extra instructions or
-information that didn't fit in the one line.
+Given a choice between two options, this skill randomly chooses one.
 
 ## Examples 
-* "Hello world"
-* "Greetings planet earth"
-* "Count up"
-* "Count down"
+* "Who is going to win the game between the National League and the American League?"
+* "Should I eat pizza or sushi?"
+* "Should I wear a dress shirt or tee?"
+* "Decide red or black"
 
 ## Credits 
-Your name
+Laurie Hannon
+Principal Consultant
+SoftSource Consulting
