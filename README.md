@@ -1,4 +1,4 @@
-## YOUR SKILL NAME
+## Decide
 Decide randomly between two options
 
 ## Description 
@@ -13,4 +13,4 @@ Given a choice between two options, this skill randomly chooses one.
 ## Credits 
 Laurie Hannon
 Principal Consultant
-SoftSource Consulting
+SoftSource
