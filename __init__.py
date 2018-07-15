@@ -29,14 +29,17 @@ class SoftSourceDecideSkill(FallbackSkill):
         utterance = message.data.get("utterance")
         LOG.debug("Utterance is: " + utterance)
         payload = utterance
-        r = requests.post('https://directline.botframework.com/v3/directline/conversations', json=payload, headers={'Authorization':'Bearer odJ5VKzB8oY.cwA.9E0.IkVvS809oGsfqJPFTe4kui6sYWbPXqUbSTUnLncIn_U'})    
+        r = requests.post('https://directline.botframework.com/v3/directline/conversations', json=payload, 
+                           headers={'Authorization':'Bearer odJ5VKzB8oY.cwA.9E0.IkVvS809oGsfqJPFTe4kui6sYWbPXqUbSTUnLncIn_U'})    
                                                                                                                                         
         
         LOG.debug("POST response r.text is " + r.text)
         payload2 = { 'type': 'message', 'from': {'id': 'mycroftclient'}, 'text': utterance }
         requests.post('https://directline.botframework.com/v3/directline/conversations/' + r.json()['conversationId'] + '/activities', headers={'Authorization':'Bearer '+r.json()['token']}, json=payload2)
 
-        r3 = requests.get('https://directline.botframework.com/v3/directline/conversations/' + r.json()['conversationId'] + '/activities', headers={'Authorization':'Bearer '+r.json()['token']}) 
+        r3 = requests.get('https://directline.botframework.com/v3/directline/conversations/' 
+                          + r.json()['conversationId'] + '/activities', 
+                          headers={'Authorization':'Bearer '+r.json()['token']}) 
         LOG.debug("GET response r3.text is " + r3.text)
 
         lastActivityIndex = len(r3.json()['activities']) - 1

@@ -11,6 +11,6 @@ Given a choice between two options, this skill randomly chooses one.
 * "Decide red or black"
 
 ## Credits 
-Laurie Hannon
-Principal Consultant
-SoftSource
+Laurie Hannon,
+Principal Consultant,
+SoftSource Consulting
